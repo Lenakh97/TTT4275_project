@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+import seaborn as sn
+import matplotlib.pyplot as plt
 
 names = ["s_length", "s_width", "p_length", "p_width"]
 dataset_class1 = pd.read_csv("class_1", names=names)
@@ -48,23 +50,21 @@ def grad_MSE(x,g,t):
     zk_grad = x.T
     return np.dot(zk_grad, mse_grad*g_grad)
 
-def training(x,t,alpha, iterations):
+def training(x,t,alpha,iterations):
     W = np.zeros((3,x.shape[1]))
     MSE_values = []
     for i in range(iterations):
         g = sigmoid(np.dot(x,W.T))
-        W = W-alpha*grad_MSE(x,g,t).T
+        W = W - alpha * grad_MSE(x,g,t).T
         MSE_values.append(MSE(g,t).mean())
-    print(W)
     return W
 
 W = training(training_dataset_array, train_correct, 0.007, 500)
 
-def predict(x,W):
+def predict(x, W):
     n = x.shape[0]
     prediction = np.array(
-        [1.0/1.0+np.exp(-(np.matmul(W,x[i]))) for i in range(n)]
-    )
+        [1.0/(1.0+np.exp(-(np.matmul(W,x[i])))) for i in range(n)])
     return prediction
 
 
@@ -79,4 +79,7 @@ def generate_confusion_matrix(x, y, W):
     return confusion_matrix
 
 print(generate_confusion_matrix(training_dataset_array, train_correct, W))
-#print(pd.crosstab(training_true_values, predicted_dataset))
+plt.figure(figsize = (7,7))
+plt.title("Confusion matrix:")
+sn.heatmap(generate_confusion_matrix(training_dataset_array, train_correct, W), annot=True)
+plt.show()
