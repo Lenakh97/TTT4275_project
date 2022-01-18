@@ -38,6 +38,14 @@ train_correct = np.zeros((training_true_values.shape[0],3))
 for i, label in np.ndenumerate(training_true_values):
     train_correct[i][label] = 1
 
+#do the same for test array
+test_true_values = np.array(len(dataset1_test20)*[0]+len(dataset2_test20)*[1]+ len(dataset3_test20)*[2])
+
+test_correct = np.zeros((test_true_values.shape[0],3))
+for i, label in np.ndenumerate(test_true_values):
+    test_correct[i][label] = 1
+
+
 def sigmoid(s):
     return 1/(1+np.exp(-s))
 
@@ -82,4 +90,8 @@ print(generate_confusion_matrix(training_dataset_array, train_correct, W))
 plt.figure(figsize = (7,7))
 plt.title("Confusion matrix:")
 sn.heatmap(generate_confusion_matrix(training_dataset_array, train_correct, W), annot=True)
+
+plt.figure(figsize = (7,7))
+plt.title("Confusion matrix:")
+sn.heatmap(generate_confusion_matrix(test_dataset_array, test_correct, W), annot=True)
 plt.show()
