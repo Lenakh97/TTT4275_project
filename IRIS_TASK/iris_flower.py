@@ -4,9 +4,9 @@ import seaborn as sn
 import matplotlib.pyplot as plt
 
 names = ["s_length", "s_width", "p_length", "p_width"]
-dataset_class1 = pd.read_csv("class_1", names=names)
-dataset_class2 = pd.read_csv("class_2", names=names)
-dataset_class3 = pd.read_csv("class_3", names=names)
+dataset_class1 = pd.read_csv("/home/lena/Documents/Estimering/Project/IRIS_TASK/class_1", names=names)
+dataset_class2 = pd.read_csv("/home/lena/Documents/Estimering/Project/IRIS_TASK/class_2", names=names)
+dataset_class3 = pd.read_csv("/home/lena/Documents/Estimering/Project/IRIS_TASK/class_3", names=names)
 
 #print("Iris dataset class_1: \n", dataset_class1)
 #print("Iris dataset class_2: \n", dataset_class2)
